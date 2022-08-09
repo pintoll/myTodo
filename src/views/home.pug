@@ -1,9 +1,78 @@
 extends base
 
 block content 
-    h3 Hello!
-    form
-        input(type="text")
+    div#home-contents
+        div#user-info
+            h1.user__clock 00:00:00
+            h5.user__greeting Hello, User!
+            p.user__quote Always Smile. - Dale Karnegey
+
+        div#goals.home-list
+            h3 Goals
+            ul#goals__ul
+                li.goals__goal 
+                    a(href="#") Master myTodo
+                    .icons 
+                        button 
+                        button
+                li.goals__goal 
+                    a(href="#") Master node and java adfsfsfsfssf
+                    .icons 
+                        button 
+                        button
+                li.goals__goal 
+                    a(href="#") Reading Books
+                    .icons 
+                        button 
+                        button
+                form
+                    input(type="text" required) 
+
+        div#today-recaps.home-list
+            h3 Today Recaps
+            ul#today-recaps__ul
+                li.today-recaps__recap 
+                    a(href="#") Master myTodo
+                    .icons 
+                        button 
+                        button
+                li.today-recaps__recap
+                    a(href="#") Master node and java 
+                    .icons 
+                        button 
+                        button
+                li.today-recaps__recap
+                    a(href="#") Reading Books
+                    .icons 
+                        button 
+                        button
+                form
+                    input(type="text" required) 
+
+        div#delayed-recaps.home-list
+            h3 Delayed-recaps
+            ul#delayed-recaps__ul
+                li.delayed-recaps__recap
+                    a(href="#") Master myTodo
+                    .icons 
+                        button 
+                        button
+                li.delayed-recaps__recap
+                    a(href="#") Master node and java 
+                    .icons 
+                        button 
+                        button
+                li.delayed-recaps__recap
+                    a(href="#") Reading Books
+                    .icons 
+                        button 
+                        button
+                form
+                    input(type="text" required) 
+    
+    if bgImage
+        img(src=`${bgImage}`).background-img
+
 
 block scripts 
     script(src="/static/js/home.js")

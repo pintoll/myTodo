@@ -3,6 +3,7 @@ import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
+import updateRouter from "./routers/updateRouter";
 
 const app = express();
 
@@ -23,7 +24,9 @@ app.use(
 );
 
 app.use("/", rootRouter);
+app.use("/update", updateRouter);
 
 app.use("/static", express.static("assets"));
+app.use("/uploads", express.static("uploads"));
 
 export default app;

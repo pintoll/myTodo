@@ -5,7 +5,7 @@ const BASE_JS = "./src/client/js/"
 module.exports = {
   entry: {
     main: BASE_JS + "main.js",
-    home: BASE_JS + "home.js"
+    home: BASE_JS + "home.js",
   },
   mode: "development",
   watch: true,
