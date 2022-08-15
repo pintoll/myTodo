@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
 
-const recapSchema = new mongoose.Schema({
+const customizedGoalSchema = new mongoose.Schema({
      title: { type: String, required: true, trim: true, },
      description: { type: String, trim: true, },
+     deadline: { 
+        start: { type: Date, required: true, },
+        end: { type: Date, required: true, },
+      },
      createdAt: {type: Date, required: true, default: Date.now(), },
      rate: Number,
-     didAt: Date,
      checked: { type: Boolean, required: true, default: false, },
      feedbacks: [mongoose.Schema.Types.ObjectId],
-     todays: [mongoose.Schema.Types.ObjectId],
-     cycle: [Number],
 });
 
-const Recap = mongoose.model("Recap", recapSchema);
-export default Recap;
+const CustomizedGoal = mongoose.model("CustomizedGoal", customizedGoalSchema);
+export default CustomizedGoal;

@@ -1,0 +1,25 @@
+extends ../../base
+
+block content 
+    h4 #{goal.title}
+    p #{goal.description}
+    span #{goal.month} 
+    br
+    span #{goal.createdAt}
+    br
+    span Rate: #{goal.rate}
+    br
+    if goal.checked
+        span You did it! 
+    else 
+        span You Should Do That
+    br
+    if goal.feedbacks.length !== 0
+        //- Mixin(#TODO)
+
+    div#editOrDelete 
+        form(method="GET" action=`/goals/month/${goal._id}/edit`)
+            button Edit Goal 
+        form(method="POST" action=`/goals/month/${goal._id}/delete`)
+            input(type="hidden" name="_method" value="DELETE")
+            button Delete Goal 

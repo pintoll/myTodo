@@ -1,0 +1,9 @@
+extends ../../base
+
+block content
+    form(method="POST")
+        input#month-selector(type="month" name="month" min="2022-08" value=`${month}`)
+        input(type="text" name="title" required)
+        input(type="text" name="description")
+        input(type="number" name="rate" required value="1")
+        input(type="submit" value="create")

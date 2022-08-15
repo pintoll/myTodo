@@ -1,0 +1,7 @@
+extends ../base  
+block content
+    if today
+        h4 hello!
+    else 
+        h4 Not Exists.
+        a(href=`/dates/create?year=${year}&month=${month}&day=${day}`) Go Here!

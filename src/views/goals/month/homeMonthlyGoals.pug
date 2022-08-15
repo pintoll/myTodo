@@ -1,0 +1,15 @@
+extends ../../base
+
+block content
+    if month 
+        form
+            input#month-selector(type="month" min="2022-08" value=`${month}`)
+    else 
+        form
+            input#month-selector(type="month" min="2022-08" value=`${currentMonth}`)
+    ul#monthly-goals-list
+
+    a#create-month(href=`/goals/month/create?month=${currentMonth}`) Create New Monthly Goals! 
+
+block scripts 
+    script(src="/static/js/homeMonthlyGoals.js")

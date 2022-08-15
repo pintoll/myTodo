@@ -6,6 +6,9 @@ module.exports = {
   entry: {
     main: BASE_JS + "main.js",
     home: BASE_JS + "home.js",
+    goalCRUD: BASE_JS + "goalCRUD.js",
+    homeYearlyGoals: BASE_JS + "homeYearlyGoals.js",
+    homeMonthlyGoals: BASE_JS + "homeMonthlyGoals.js",
   },
   mode: "development",
   watch: true,
