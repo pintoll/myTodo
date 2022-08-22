@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import { setDate } from "../timeSetFunctions";
 
 const todaySchema = new mongoose.Schema({
-    date: { type: Date, required: true, unique: true, default: setDate(new Date()) },
+    date: { type: String, required: true, unique: true, },
     // todayRecapIds: [{ 
     //     type: mongoose.Schema.Types.ObjectId, 
     //     ref: "Recap",
@@ -15,14 +14,6 @@ const todaySchema = new mongoose.Schema({
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "recap",
     // }],
-    dailyGoalIds: [{ 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "DailyGoal",
-     }],
-     customizedGoalIds: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "CustomizedGoal",
-     }],
     feedbacks: [{ 
         type: mongoose.Schema.Types.ObjectId,
         ref: "Feedback",

@@ -1,0 +1,15 @@
+extends ../../base
+
+block content
+    if week
+        form
+            input#week-selector(type="week" min="2022-W01" value=`${week}`)
+    else 
+        form
+            input#week-selector(type="week" min="2022-W01" value=`${currentWeek}`)
+    ul#weekly-goals-list
+
+    a#create-week(href=`/goals/week/create?week=${currentWeek}`) Create New Weekly Goals! 
+
+block scripts
+    script(src="/static/js/homeWeeklyGoals.js") 

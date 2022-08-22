@@ -7,7 +7,7 @@ const yearlyGoalSchema = new mongoose.Schema({
      createdAt: {type: Date, required: true, default: Date.now(), },
      rate: Number,
      checked: { type: Boolean, required: true, default: false, },
-     feedbacks: [{type: mongoose.Schema.Types.ObjectId, ref: "Feedbacks"}],
+     feedbacks: [{type: mongoose.Schema.Types.ObjectId, ref: "Feedback"}],
 });
 
 const YearlyGoal = mongoose.model("YearlyGoal", yearlyGoalSchema);

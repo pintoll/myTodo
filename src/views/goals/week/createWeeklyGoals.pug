@@ -1,0 +1,9 @@
+extends ../../base
+
+block content
+    form(method="POST")
+        input#week-selector(type="week" name="week" min="2022-W01" value=`${week}`)
+        input(type="text" name="title" required)
+        input(type="text" name="description")
+        input(type="number" name="rate" required value="1")
+        input(type="submit" value="create")

@@ -1,0 +1,15 @@
+extends ../../base
+
+block content
+    if day
+        form
+            input#day-selector(type="date" min="2022-01-01" value=`${day}`)
+    else 
+        form
+            input#day-selector(type="date" min="2022-01-01" value=`${currentDay}`)
+    ul#daily-goals-list
+
+    a#create-day(href=`/goals/day/create?day=${currentDay}`) Create New Daily Goals! 
+
+block scripts
+    script(src="/static/js/homeDailyGoals.js") 

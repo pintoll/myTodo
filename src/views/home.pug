@@ -8,7 +8,10 @@ block content
             p.user__quote Always Smile. - Dale Karnegey
 
         div#goals.home-list
-            h3 Goals
+            div.switching-div
+                i.fa-solid.fa-arrow-left
+                h3(data-enum=0) YearlyGoal
+                i.fa-solid.fa-arrow-right
             ul#goals__ul
                 form
                     input(type="text" required placeholder="New Goals!")
@@ -16,12 +19,18 @@ block content
                 
 
         div#today-recaps.home-list
-            h3 Today Recaps
+            div.switching-div
+                i.fa-solid.fa-arrow-left
+                h3 Today Recaps
+                i.fa-solid.fa-arrow-right
             ul#today-recaps__ul
                 
 
         div#delayed-recaps.home-list
-            h3 Delayed Recaps
+            div.switching-div
+                i.fa-solid.fa-arrow-left
+                h3 Delayed Recaps
+                i.fa-solid.fa-arrow-right
             ul#delayed-recaps__ul
                 
     

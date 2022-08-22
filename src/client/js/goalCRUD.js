@@ -17,7 +17,7 @@ export function renderGoal (goal, type) {
     title.href = `/goals/${typeURL(type)}/${goal._id}`;
     title.innerText = goal.title;
     const description = document.createElement("p");
-    description.innerText = goal.description;
+    description.innerText = goal.description === undefined ? "No Description" : goal.description;
     textDiv.appendChild(title);
     textDiv.appendChild(description);
     
