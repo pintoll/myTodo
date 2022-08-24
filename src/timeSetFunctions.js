@@ -1,7 +1,6 @@
-import { NoEmitOnErrorsPlugin } from "webpack";
-import Today from "./models/Today";
-
-const MS_OF_DAY = 86400000
+const MS_OF_DAY = 86400000;
+const MS_OF_HOUR = 3600000;
+const CYCLE_INTERVAL = [1,3,7,14,31,90,180,365];
 
 export function setDate(day) {
     const year = day.getFullYear();
@@ -10,21 +9,13 @@ export function setDate(day) {
     return new Date(`${year}-${month}-${date} 06:00:00`);
 }
 
-export async function setToday() {
-    //today = Today.find({date: })
-    //Today's delayedRecapIds =Yesterday's todayReccapIds
-
-    //TODO! fetch / Date / ProtoType 공부
-    //      goals + TOday로 이루어진 자료 입출력 완료
-}
-
 export function getCurrentMonth() {
-    const now = new Date();
+    const now = new Date(Date.now() - 6*MS_OF_HOUR );
     return `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}`;
 }
 
 export function getCurrentWeek() {
-    const now = new Date();
+    const now = new Date(Date.now() - 6*MS_OF_HOUR );
     const thisMonday = now.getDay() === 0 ? now - 6*MS_OF_DAY : now - (now.getDay()-1)*MS_OF_DAY;
     const startDate = new Date(new Date(thisMonday).getFullYear(), 0, 1) - 1;
     const weekNumber = Math.ceil(Math.floor((thisMonday - startDate) / MS_OF_DAY)/7);
@@ -32,6 +23,35 @@ export function getCurrentWeek() {
 }
 
 export function getCurrentDay() {
-    const now = new Date();
+    const now = new Date(Date.now() - 6*MS_OF_HOUR );
     return `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+}
+
+function formatDate(now) {
+    return `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;   
+}
+
+export function defaultRecapCycle(date) {
+    const cycle = [];
+    cycle.push(date);
+    
+    CYCLE_INTERVAL.forEach(element => {
+        cycle.push(formatDate(new Date(
+            new Date(date).getTime() + element*MS_OF_DAY)
+            ));
+    });
+    return cycle;
+}
+
+export function compareStringDate(a, b) {
+    if( new Date(a) < new Date(b) ) return false;
+    else return true;
+}
+
+export function sortRecapCycle(arr1, arr2) {
+    return [...new Set([...arr1, ...arr2])].sort((a,b) => {
+        if(new Date(a) > new Date(b)) return 1;
+        if( a === b ) return 0;
+        if(new Date(a) < new Date(b)) return -1;
+    });
 }

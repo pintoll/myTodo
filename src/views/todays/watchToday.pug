@@ -1,0 +1,10 @@
+extends ../base 
+
+block content
+    form(method="POST")
+        input(name="date" type="date" min="2022-08-01" value=`${date}`)
+        input(type="submit" value = "submit")
+    if today 
+         
+    else
+        h4 You don't have any plans yet.

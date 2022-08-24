@@ -1,0 +1,37 @@
+extends ../base 
+
+block content
+    form(method="POST") 
+        input(type="hidden" name="_method" value="PATCH")
+        input(type="text" name="title" value=`${recap.title}` required)
+        input(type="text" name="description" value=`${recap.description}`)
+        input(type="number" name="rate" value=`${recap.rate}` required)
+        if recap.checked 
+            label.switch
+            input(type="checkbox" checked name="checkbox")
+            span.slider.round
+        else
+            label.switch
+            input(type="checkbox" name="checkbox")
+            span.slider.round
+        br
+        label(for="addedDate") 
+            | You can choose additional Recap Date
+            input(type="date" name="addedDate" min=`${now}`)#added-date
+            button Add
+        input(type="hidden" name="addedCycleStrings" data-original=`${recap.dateTodo.slice(recap.dateIndex)}`)#hidden-data
+        p 
+        br
+        input(type="submit" value="Edit")#submit
+    
+    if recap.feedbacks.length !== 0
+        ul#feedbackList 
+            //- many feedbacks (a)
+    else 
+        span There is no Feedback...
+        br
+
+    a(href=`/feedbacks/create/?addedBy=${recap._id}`) Add Feedback
+
+block scripts
+    script(src="/static/js/editRecap.js") 

@@ -1,0 +1,35 @@
+extends ../base
+
+block content 
+    form(method="POST")
+        label(for="title") 
+            | Title
+            input(type="text" name="title" placeholer="Title" required)
+        br
+        label(for="description") 
+            | Description
+            input(type="text" name="description" placeholer="description")
+        br
+        label(for="rate") 
+            | Rate
+            input(type="number" name="rate" value=1 required)
+        br
+        label(for="date") 
+            | Startday
+            input(type="date" name="date" value=`${date}` min=`${date}` required)
+        br
+        label(for="defaultCycle")
+            | Default Recap Cycle
+            input(type="checkbox" name="defaultCycle" checked )#default-cycle 
+        br
+        label(for="addedDate") 
+            | You can choose additional Recap Date
+            input(type="date" name="addedDate" min=`${date}`)#added-date
+            button Add
+        input(type="hidden" name="addedCycleStrings")#hidden-data
+        p 
+        br
+        input(type="submit" value="submit")#submit
+    
+block scripts
+    script(src="/static/js/createRecap.js") 

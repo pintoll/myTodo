@@ -3,14 +3,18 @@ import { getCurrentDay, getCurrentMonth, getCurrentWeek } from "./setTimeFunctio
 
 // Clock
 const getClock = () => {
+    userDate.innerText = `${getCurrentDay()}`;
+    
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
     clock.innerText = `${hours}:${minutes}:${seconds}`;
+    
 }
 
 const clock = document.querySelector("h1.user__clock");
+const userDate = document.querySelector("h1.user__date");
 getClock();
 setInterval(getClock, 1000);
 
@@ -141,6 +145,7 @@ const handleTodoSubmit= async (event) => {
 
     const goal = {
         title: event.target.querySelector("input").value,
+        description: "No Description",
         rate: 1,
         year: new Date().getFullYear(),
         month: getCurrentMonth(),
@@ -148,7 +153,7 @@ const handleTodoSubmit= async (event) => {
         day: getCurrentDay(),
     } 
     const urlList = ["yearlyGoals", "monthlyGoals", "weeklyGoals", "dailyGoals"];
-    
+
     const response = await fetch(`/api/${urlList[goalsSwitchH3.dataset.enum]}/render`, {
         method: "POST",
         headers: {
@@ -182,3 +187,6 @@ paintGoal();
 goalForm.addEventListener("submit", handleTodoSubmit);
 goalsSwitchLeft.addEventListener("click", handleSwitchLeft);
 goalsSwitchRight.addEventListener("click", handleSwitchRight);
+
+
+//TODO: recap and Today 만들기

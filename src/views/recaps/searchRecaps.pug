@@ -1,0 +1,14 @@
+extends ../base
+include ../mixins/recap
+
+block content
+    form(method="GET")
+        input(name="keyword" type="search" placeholder="Search by title")
+        input(type="submit" value="Search Recap")
+
+    div 
+        each  recap in searchedRecaps
+            +recap(recap)
+            br
+        else 
+            span No Recap found.

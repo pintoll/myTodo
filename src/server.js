@@ -4,10 +4,12 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import methodOverride from "method-override";
 import rootRouter from "./routers/rootRouter";
-import datesRouter from "./routers/datesRouter";
-import updateRouter from "./routers/updateRouter"
 import goalsRouter from "./routers/goalsRouter";
+import recapsRouter from "./routers/recapsRouter";
+import todaysRouter from "./routers/todaysRouter";
+import updateRouter from "./routers/updateRouter";
 import apiRouter from "./routers/apiRouter";
+
 
 const app = express();
 
@@ -36,7 +38,8 @@ app.use(
 
 app.use("/", rootRouter);
 app.use("/goals", goalsRouter);
-app.use("/dates", datesRouter);
+app.use("/recaps", recapsRouter);
+app.use("/todays", todaysRouter);
 app.use("/update", updateRouter);
 app.use("/api", apiRouter);
 

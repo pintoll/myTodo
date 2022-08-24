@@ -100,9 +100,9 @@ export async function postGetDailyGoals (req, res) {
 }
 
 export async function postRenderYearlyGoal (req, res) {
-    const { title, rate, year } = req.body.goal;
+    const { title, description, rate, year } = req.body.goal;
     const newGoal = await YearlyGoal.create({
-        title,
+        title, description,
         rate,
         year,
     });
@@ -110,9 +110,9 @@ export async function postRenderYearlyGoal (req, res) {
 }
 
 export async function postRenderMonthlyGoal (req, res) {
-    const { title, rate, month } = req.body.goal;
+    const { title, description, rate, month } = req.body.goal;
     const newGoal = await MonthlyGoal.create({
-        title,
+        title, description,
         rate,
         month,
     });
@@ -120,9 +120,9 @@ export async function postRenderMonthlyGoal (req, res) {
 }
 
 export async function postRenderWeeklyGoal (req, res) {
-    const { title, rate, week } = req.body.goal;
+    const { title, description, rate, week } = req.body.goal;
     const newGoal = await WeeklyGoal.create({
-        title,
+        title, description,
         rate,
         week,
     });
@@ -130,9 +130,9 @@ export async function postRenderWeeklyGoal (req, res) {
 }
 
 export async function postRenderDailyGoal (req, res) {
-    const { title, rate, day } = req.body.goal;
+    const { title, description, rate, day } = req.body.goal;
     const newGoal = await DailyGoal.create({
-        title,
+        title, description,
         rate,
         day,
     });
@@ -204,13 +204,14 @@ export async function getEditYearlyGoal (req, res) {
 export async function postEditYearlyGoal (req, res) {
     const { id } = req.params;
     const { title, description, year, rate, checkbox } =req.body;
-    await YearlyGoal.findOneAndUpdate({ id }, {
-        title,
-        description,
-        year,
-        rate,
-        checked: checkbox === "on" ? true : false,
-    });
+    const goal = await YearlyGoal.findById(id);
+    goal.title = title;
+    goal.description = description;
+    goal.year = year;
+    goal.rate = rate;
+    goal.checkbox = checkbox === "on";
+    goal.save();
+
     return res.redirect(`/goals/year/${id}`);
 }
 
@@ -273,8 +274,7 @@ export async function getEditMonthlyGoal (req, res) {
 export async function postEditMonthlyGoal (req, res) {
     const { id } = req.params;
     const { title, description, month, rate, checkbox } =req.body;
-    console.log(title, description, month, "hello");
-    const goal = await MonthlyGoal.findOneAndUpdate({ id }, {
+    const goal = await MonthlyGoal.findOneAndUpdate( {_id: id}, {
         title,
         description,
         month,
@@ -342,12 +342,11 @@ export async function getEditWeeklyGoal (req, res) {
 export async function postEditWeeklyGoal (req, res) {
     const { id } = req.params;
     const { title, description, week, rate, checkbox } =req.body;
-    console.log(title, description, week, "hello");
-    const goal = await WeeklyGoal.findOneAndUpdate({ id }, {
+    const goal = await WeeklyGoal.findOneAndUpdate({ _id: id }, {
         title,
         description,
         week,
-        rate: rate,
+        rate,
         checked: checkbox === "on" ? true : false,
     });
     return res.redirect(`/goals/week/${id}`);
@@ -413,7 +412,7 @@ export async function postEditDailyGoal (req, res) {
     const { id } = req.params;
     const { title, description, day, rate, checkbox } =req.body;
     console.log(title, description, day, "hello");
-    const goal = await DailyGoal.findOneAndUpdate({ id }, {
+    const goal = await DailyGoal.findOneAndUpdate({ _id: id }, {
         title,
         description,
         day,

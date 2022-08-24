@@ -1,0 +1,18 @@
+extends ../base
+
+block content
+    h4 Title: #{recap.title}
+    h4 Description: #{recap.description}
+    h4 Created At: #{recap.createdAt}
+    h4 Checked : #{recap.checked}
+    h4 Date: #{recap.date}
+    h4 Start Date: #{recap.dateTodo[0]}
+    h4 Date You Must Do: 
+    h4 #{recap.dateTodo}
+
+    div#editOrDelete 
+        form(method="GET" action=`/recaps/${recap._id}/edit`)
+            button Edit Goal 
+        form(method="POST" action=`/recaps/${recap._id}/delete`)
+            input(type="hidden" name="_method" value="DELETE")
+            button Delete Goal 
