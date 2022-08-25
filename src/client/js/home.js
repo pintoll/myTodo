@@ -1,10 +1,9 @@
 import { renderGoal } from "./goalCRUD";
+import { renderRecap } from "./recapCRUD";
 import { getCurrentDay, getCurrentMonth, getCurrentWeek } from "./setTimeFunctions";
 
 // Clock
 const getClock = () => {
-    userDate.innerText = `${getCurrentDay()}`;
-    
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -14,11 +13,11 @@ const getClock = () => {
 }
 
 const clock = document.querySelector("h1.user__clock");
-const userDate = document.querySelector("h1.user__date");
 getClock();
 setInterval(getClock, 1000);
 
-//Add Goals
+
+// Goals
 const GOAL_TYPE = ["YearlyGoal", "MonthlyGoal", "WeeklyGoal", "DailyGoal"];
 
 const goalsContainer = document.getElementById("goals");
@@ -140,7 +139,7 @@ const paintGoal = async () => {
 }
 
 
-const handleTodoSubmit= async (event) => {
+const hadleGoalSubmit= async (event) => {
     event.preventDefault();
 
     const goal = {
@@ -184,9 +183,108 @@ const handleSwitchRight = () => {
 }
 
 paintGoal();
-goalForm.addEventListener("submit", handleTodoSubmit);
+goalForm.addEventListener("submit", hadleGoalSubmit);
 goalsSwitchLeft.addEventListener("click", handleSwitchLeft);
 goalsSwitchRight.addEventListener("click", handleSwitchRight);
 
 
 //TODO: recap and Today 만들기
+const todayRecapsList = document.getElementById("today-recaps__ul");
+const todayRecapsForm = todayRecapsList.querySelector("form");
+const delayedRecapsList = document.getElementById("delayed-recaps__ul");
+const delayedRecapsForm = delayedRecapsList.querySelector("form");
+
+const eraseTodayRecaps = () => {
+    while(todayRecapsList.childNodes.length > 1) {
+        todayRecapsList.lastChild.remove();
+    }
+}
+
+const printTodayRecap = async (newRecap) => {
+    const recapLi = renderRecap(newRecap);
+    todayRecapsList.appendChild(recapLi);
+}
+
+const paintTodayRecaps = async () => {
+    eraseTodayRecaps();
+    const response = await fetch("/api/today/get/todayRecaps", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ date: getCurrentDay() }),
+    });
+
+    if(response.status === 200) {
+        const { todayRecaps } = await response.json();
+        todayRecaps.forEach(recap => {
+            printTodayRecap(recap);
+        });
+    } else if(response.status === 300) {    
+        //There is no Today's recap
+    } else {
+        console.log(response.status);
+    }
+}
+
+const eraseDelayedRecaps = () => {
+    while(delayedRecapsList.childNodes.length > 1) {
+        delayedRecapsList.lastChild.remove();
+    }
+}
+
+const printDelayedRecap = async (newRecap) => {
+    const recapLi = renderRecap(newRecap);
+    delayedRecapsList.appendChild(recapLi);
+}
+
+const paintDelayedRecaps = async () => {
+    eraseDelayedRecaps();
+    const response = await fetch("/api/today/get/delayedRecaps", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ date: getCurrentDay() }),
+    });
+
+    if(response.status === 200) {
+        const { delayedRecaps } = await response.json();
+        delayedRecaps.forEach(recap => {
+            printDelayedRecap(recap);
+        });
+    } else if(response.status === 300) {    
+        //There is no Today's recap
+    } else {
+        console.log(response.status);
+    }
+}
+
+
+const handleRecapSubmit = async (event) => {
+    event.preventDefault();
+
+    const recap = {
+        title: event.target.querySelector("input").value,
+        description: "No Description",
+        rate: 1,
+        date: getCurrentDay(),
+    } 
+    const response = await fetch(`/api/recap/render`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ recap }),
+    }); 
+
+    if(response.status === 201) {
+        const newRecap = (await response.json()).newRecap;
+        printTodayRecap(newRecap);
+        return event.target.querySelector("input").value = "";
+    }
+}
+
+
+paintTodayRecaps();
+todayRecapsForm.addEventListener("submit", handleRecapSubmit);

@@ -1,10 +1,22 @@
 import Backgrounds from "../models/Backgrounds";
+import Today from "../models/Today";
+import Recap from "../models/Recap";
+import { formatAddedDate, getAddedCurrentDay, getCurrentDay } from "../timeSetFunctions";
 
 export const home = async (req, res) => {
+    const today = await Today.findOne({date: getCurrentDay()}).populate("todayRecapIds");
+
     const bgImage = await Backgrounds.findRandom().limit(1);
     if(bgImage.length === 1) {
-        return res.render("home", {pageTitle: "Home", bgImage: bgImage[0].imgPath, });
+        return res.render("home", {
+            pageTitle: "Home", 
+            bgImage: bgImage[0].imgPath, 
+            date: today.date,
+        });
     } else {
-        return res.render("home", {pageTitle:"Home"});
+        return res.render("home", {
+            pageTitle:"Home", 
+            date: today.date,
+        });
     }
 }

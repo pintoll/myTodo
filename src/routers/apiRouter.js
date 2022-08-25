@@ -5,6 +5,8 @@ import {
     postRenderYearlyGoal, postRenderMonthlyGoal, postRenderWeeklyGoal, postRenderDailyGoal,
     
  } from "../controllers/goalsController";
+import { removeRecap, patchSetRecapChecked, postRenderRecap } from "../controllers/recapsController";
+import { postGetTodayRecaps, postGetDelayedRecaps } from "../controllers/todaysController";
 
 const apiRouter = express.Router();
 
@@ -20,6 +22,14 @@ apiRouter.post("/yearlyGoals/render", postRenderYearlyGoal);
 apiRouter.post("/monthlyGoals/render", postRenderMonthlyGoal);
 apiRouter.post("/weeklyGoals/render", postRenderWeeklyGoal);
 apiRouter.post("/dailyGoals/render", postRenderDailyGoal);
+
+apiRouter.patch("/recap/isChecked", patchSetRecapChecked);
+apiRouter.delete("/recap/remove", removeRecap);
+
+apiRouter.post("/recap/render", postRenderRecap);
+
+apiRouter.post("/today/get/todayRecaps", postGetTodayRecaps);
+apiRouter.post("/today/get/delayedRecaps", postGetDelayedRecaps);
 
 
 

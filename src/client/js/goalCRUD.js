@@ -1,5 +1,3 @@
-import YearlyGoal from "../../models/goal/YearlyGoal";
-
 export function renderGoal (goal, type) {
     const goalLi = document.createElement("li");
     goalLi.dataset.id = goal._id;

@@ -6,6 +6,7 @@ const recapSchema = new mongoose.Schema({
      createdAt: {type: Date, required: true, default: Date.now(), },
      rate: Number,
      checked: { type: Boolean, required: true, default: false, },
+     delayedDays: { type: Number, required: true, default: 0},
      date: { type: String, required: true, },
      dateIndex: { type: Number, required: true, default: 0 },
      dateTodo: [{ type: String, required: true, }],

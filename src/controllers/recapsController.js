@@ -26,6 +26,75 @@ async function updateTodayForDeleteRecap (_id, date) {
     } return;
 }
 
+// API
+export async function patchSetRecapChecked(req, res) {
+    const { id } = req.body;
+    const recap = await Recap.findById(id);
+    recap.checked = !recap.checked;
+    await recap.save();
+    
+    return res.sendStatus(200);
+}
+
+export async function removeRecap(req, res) {
+    const { id } = req.body;
+    const recap = await Recap.findById(id);
+    try {
+        recap.dateTodo.forEach(async (date) => {
+        const today = await Today.findOne({ date });
+        if(today) {
+            const idx = today.todayRecapIds.indexOf(recap._id);
+            today.todayRecapIds.splice(idx, 1);
+            await today.save();
+            }
+        });        
+    } catch(err) {
+        console.log("Failed to edit Today", err);
+        return res.sendStatus(500);
+    }
+
+    await Recap.findByIdAndDelete(id);
+    return res.sendStatus(204);
+}
+
+export async function postRenderRecap (req, res) {
+    const { title, description,rate, date } = req.body.recap;
+    const dateTodo = defaultRecapCycle(date);
+    let newRecap;
+    try {
+        newRecap = await Recap.create({
+            title,
+            description,
+            rate,
+            date,
+            dateTodo,
+        });
+    } catch (err) {
+        console.log("Failed to make Recap");
+        return res.sendStatus(500);
+    }
+
+    try {
+        newRecap.dateTodo.forEach(async (date) => {
+            const today = await Today.findOne({ date });
+            if(today) {
+                today.todayRecapIds.push(newRecap._id);
+                await today.save();
+            } else {
+                await Today.create({
+                    date,
+                    todayRecapIds: [newRecap._id],
+                });
+            }
+        });
+    } catch(err) {
+        console.log("Failed to make Today", err);
+        await Recap.findByIdAndRemove(newRecap._id);
+        return res.sendStatus(500);
+    }
+    return res.status(201).json({ newRecap });
+}
+
 //Controllers
 export function getRecapsHome (req, res) {
     return res.status(200).render("recaps/recapsHome", {
@@ -75,7 +144,6 @@ export async function postCreateRecap (req, res) {
             rate,
             date,
             dateTodo,
-            firstDate: date,
         });
     } catch (err) {
         console.log("Failed to make Recap");

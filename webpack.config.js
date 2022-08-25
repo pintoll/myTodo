@@ -14,6 +14,7 @@ module.exports = {
     homeDailyGoals: BASE_JS + "homeDailyGoals.js",
     createRecap: BASE_JS + "createRecap.js",
     editRecap: BASE_JS + "editRecap.js",
+    recapCRUD: BASE_JS + "recapCRUD.js",
   },
   mode: "development",
   watch: true,

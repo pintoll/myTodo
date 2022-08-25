@@ -27,7 +27,17 @@ export function getCurrentDay() {
     return `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
 }
 
+export function getAddedCurrentDay(i) {
+    const now = new Date(Date.now() - 6*MS_OF*HOUR + i*MS_OF_DAY);
+    return `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+}
+
 function formatDate(now) {
+    return `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;   
+}
+
+export function formatAddedDate(stringDate, i) {
+    const now = new Date(new Date(stringDate) + i*MS_OF_DAY);
     return `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;   
 }
 
