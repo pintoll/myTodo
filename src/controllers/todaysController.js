@@ -49,3 +49,5 @@ export async function postWatchToday(req, res) {
     console.log(req.body);
     return res.redirect(`/todays/${req.body.date}`);
 }
+
+//#TODO : Read Today // Today Set 되는거 확인...

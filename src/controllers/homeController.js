@@ -11,12 +11,12 @@ export const home = async (req, res) => {
         return res.render("home", {
             pageTitle: "Home", 
             bgImage: bgImage[0].imgPath, 
-            date: today.date,
+            date: today ? today.date : getCurrentDay(),
         });
     } else {
         return res.render("home", {
             pageTitle:"Home", 
-            date: today.date,
+            date: today ? today.date : getCurrentDay(),        
         });
     }
 }
