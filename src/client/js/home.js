@@ -2,19 +2,33 @@ import { renderGoal } from "./goalCRUD";
 import { renderRecap } from "./recapCRUD";
 import { getCurrentDay, getCurrentMonth, getCurrentWeek } from "./setTimeFunctions";
 
-// Clock
+// User
+const todayBtn = document.getElementById("set-today");
+
+const setToday = async (event) => {
+    const response = await fetch("/api/today/set", {
+        method: "POST",
+        });
+
+        if(response.status === 404) {
+           console.log("yesterday not exists")
+        }
+        return;
+}
+
 const getClock = () => {
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
     clock.innerText = `${hours}:${minutes}:${seconds}`;
-    
 }
 
 const clock = document.querySelector("h1.user__clock");
 getClock();
 setInterval(getClock, 1000);
+
+todayBtn.addEventListener("click", setToday);
 
 
 // Goals

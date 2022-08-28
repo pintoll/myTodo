@@ -6,7 +6,7 @@ import {
     
  } from "../controllers/goalsController";
 import { removeRecap, patchSetRecapChecked, postRenderRecap } from "../controllers/recapsController";
-import { postGetTodayRecaps, postGetDelayedRecaps } from "../controllers/todaysController";
+import { postGetTodayRecaps, postGetDelayedRecaps, setToday } from "../controllers/todaysController";
 
 const apiRouter = express.Router();
 
@@ -30,6 +30,8 @@ apiRouter.post("/recap/render", postRenderRecap);
 
 apiRouter.post("/today/get/todayRecaps", postGetTodayRecaps);
 apiRouter.post("/today/get/delayedRecaps", postGetDelayedRecaps);
+
+apiRouter.post("/today/set", setToday);
 
 
 
