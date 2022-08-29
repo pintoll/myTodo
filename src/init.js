@@ -21,7 +21,7 @@ import Today from "./models/Today";
 import app from "./server";
 import { formatAddedDate, getCurrentDay, getAddedCurrentDay } from "./timeSetFunctions";
 
-const PORT = 4000;
+const PORT = process.env.PORT;
 
 const handalListening = () => 
     console.log(`\n※ Server listesning on port http://localhost:${PORT} ... ※`);
