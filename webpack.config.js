@@ -16,8 +16,6 @@ module.exports = {
     editRecap: BASE_JS + "editRecap.js",
     recapCRUD: BASE_JS + "recapCRUD.js",
   },
-  mode: "development",
-  watch: true,
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/styles.css",

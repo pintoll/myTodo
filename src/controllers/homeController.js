@@ -1,7 +1,6 @@
 import Backgrounds from "../models/Backgrounds";
 import Today from "../models/Today";
-import Recap from "../models/Recap";
-import { formatAddedDate, getAddedCurrentDay, getCurrentDay } from "../timeSetFunctions";
+import { getCurrentDay } from "../timeSetFunctions";
 
 export const home = async (req, res) => {
     const today = await Today.findOne({date: getCurrentDay()}).populate("todayRecapIds");
